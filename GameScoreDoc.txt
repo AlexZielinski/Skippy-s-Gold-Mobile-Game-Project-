@@ -1,0 +1,96 @@
+						|---------------------------------------|
+						|------	GAME AUDIO DOCUMENTATION -------|
+						|---------------------------------------|
+
+========================================================================================================
+Author: Alex Zielinski
+
+Created : 14/05/2015
+Modified: 14/05/2015
+========================================================================================================
+DISCLAIMER:
+	Please don't go for my throat if I made an error or if something doesn't work. Just let me know
+	in the most passive aggressive way you can. Thank You.
+
+========================================================================================================
+CONTENT: 
+	0 - Set up text object
+	1 - ScoreManager script
+	2 - Accessing text object
+	3 - Increment score variable
+
+========================================================================================================
+0 | SET UP TEXT OBJECT
+---
+	In the 'hierarchy' tabs choose 'create' , then 'UI' and then 'Text'. Change the Pos X and Pos Y
+	respectivley to position the text accordingly.
+
+========================================================================================================
+1 | SCOREMANAGER SCRIPT
+---
+	Make sure you have your Text object selected and in the inspector click on 'New Component' .
+	Name the script 'ScoreManager'. This script is responsible for dynamically changing the text
+	object to display the user's score.
+
+	Copy and paste the following into the script :
+		-----------------------------------------------------
+		using UnityEngine;
+		using System.Collections;
+		using UnityEngine.UI;
+
+		public class ScoreManager : MonoBehaviour {
+
+			// static score variable
+			public static int score;
+
+			// instance of Text object
+			public Text text;
+
+			void OnAwake() {
+				// accesses Text component
+				text = GetComponent<Text> ();
+				// sets score to 0
+				score = 0;
+			}
+
+			// Update is called once per frame
+			void Update () {
+				// updates the score text
+				text.text = "Score: " + score;
+			}
+			
+
+			// gets the users score
+			public static int getScore() {
+				return score;
+			}
+		}
+		-----------------------------------------------------
+
+
+========================================================================================================
+2 | ACCESSING TEXT OBJECT
+---
+	In order for the script to dynamically change what the text object is displaying, the script must 
+	be able to access the text object. In the code above, a Text object variable is set to public.
+	This means that in the inspector of the Text object, under the script 'ScoreManager' section there
+	is a variabe called text with an empty box beside it. Drag the  'Text' object from the hierarchy 
+	and drop it into the empty box beside the text variable. That way the script is accessing the 
+	'Text' onject directly.
+
+========================================================================================================
+3 | INCREMEMNT SCORE VARIABLE
+---
+	Lastly the score must be changed for everytime the user selects a valid tile. To do this, go into
+	the script that contains a function that is responsible for determining whether or not the user
+	has selected a valid tile. In the sections that says 'yes, the tile is valid' , copy and paste 
+	the following into that section :
+			---------------------
+			ScoreManager.score++;
+			---------------------
+
+========================================================================================================
+
+
+
+	

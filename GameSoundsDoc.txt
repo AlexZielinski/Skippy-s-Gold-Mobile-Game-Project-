@@ -1,0 +1,280 @@
+						|---------------------------------------|
+						|------	GAME AUDIO DOCUMENTATION -------|
+						|---------------------------------------|
+
+========================================================================================================
+Author: Alex Zielinski
+
+Created : 07/05/2015
+Modified: 19/05/2015
+========================================================================================================
+DISCLAIMER:
+	Please don't go for my throat if I made an error or if something doesn't work. Just let me know
+	in the most passive aggressive way you can. Thank You.
+
+========================================================================================================
+CONTENT: 
+	0 - Set up
+	1 - Welcome audio
+	2 - User touch/selection audio
+	3 - Lose audio
+	4 - Random phrase audio
+
+========================================================================================================
+0 | SET UP:
+---
+	First thing you need to do is to go into your 'Resources' folder in your 
+	Unity project folder. (It can be found in your into project folder/
+	Assets/Resources)
+
+	if there is no 'Resources' folder inside your 'Assets' folder than just
+	simply create a 'Resources' folder.
+
+	Then copy all the audio files in the folder provided and paste them into
+	your 'Resources' folder.
+
+========================================================================================================
+========================================================================================================
+1 | WELCOME AUDIO IMPLEMENTATION:
+---
+	The welcome audio wave will be played whenever the user enters the game and
+	is brought to the main menu page. First open up the script which is attached
+	to the object which represents the games main menu. Next at the top of the 
+	script before 'void Start()' you must initialize some variables
+
+	You must create two functions, copy and paste the following functions
+	into the script :
+
+	Function 1 - plays sound when called:
+		-------------------------------
+		// plays welcome audio
+		void PlaySoundWelcome() {	
+			aSource.Play();
+		}
+		-------------------------------
+
+	Function 2 - loads audio clip into an audio source:
+		------------------------------------------------------------------------
+		// initializes audio
+		void InitSoundWelcome() {
+			// adds audio source component
+			aSource = (AudioSource)gameObject.AddComponent <AudioSource>();
+			// creates audio clip
+			AudioClip aClip;
+			// stores audio file in audioClip variable
+			aClip = (AudioClip)Resources.Load ("s6(Welcome)");
+			// sets source to audio clip/file
+			aSource.clip = aClip;
+			// plays welcome sound
+			aSource.Play();
+		}
+		------------------------------------------------------------------------
+
+	Finally the sound is ready to be played when the player is taken to the main menu on start up.
+	Copy and paste the following code into the 'void Start()' function of the script :
+		-----------------------
+		// initializes sound
+		InitSoundWelcome();
+		// plays welcome sound
+		PlaySoundWelcome();
+		-----------------------
+
+========================================================================================================
+========================================================================================================
+2 | BOOP ON TOUCH AUDIO IMPLEMENTATION:
+---
+	The boop audio wave will be played anytime the player clicks somewhere, for example when the 
+	player selects a tile or when the player selects a button or an option. So any script that 
+	deals with an action event where the user clicks on something (like the action event of the 
+	user selecting a tile)is where the following code will be implemented in.
+
+	At the start of the script some instance variables 
+	must be initialized. Copy and paste the following 
+	into the start of the script :
+		---------------------------
+		// AudioSource instance					
+		public AudioSource aSource;						
+		---------------------------
+
+	Next you must create two functions, copy and paste 
+	the following functions into the script :
+
+	Function 1 - Plays the audio when called :
+		-------------------------------
+		// plays welcome audio
+		void PlaySoundBoop() {	
+			aSource.Play ();
+		}
+		-------------------------------
+
+	Function 2 - loads the audio clips into an audio source :
+		------------------------------------------------------------------------
+		// initializes audio
+		void InitSoundBoop() {
+			// adds audio source component
+			aSource = (AudioSource)gameObject.AddComponent <AudioSource>();
+			// creates audio clip
+			AudioClip aClip;
+			// stores audio file in audioClip variable
+			aClip = (AudioClip)Resources.Load ("s1(Boop)");
+			// sets source to audio clip/file
+			aSource.clip = aClip;
+		}
+		------------------------------------------------------------------------
+
+	In 'void Start()' copy and paste the following (initializes the audio on start) :
+		--------------------
+		// initializes sound
+		InitSoundBoop();
+		--------------------
+
+	In 'void OnMouseUp()' copy and paste the following (plays audio on mouse up) :
+		----------------
+		// plays boop sound		
+		PlaySoundBoop();
+		----------------
+
+========================================================================================================
+========================================================================================================
+3 | - LOSE AUDIO IMPLEMENTATION:
+---
+	The lose audio wave will be played anytime the user selects an invalid tile. The following code 
+	must be implemented into the script that is responsible for determining whether or not player has
+	selected a valid tile.
+
+	At the start of the script some instance variables 
+	must be initialized. Copy and paste the following 
+	into the start of the script:
+		---------------------------
+		// AudioSource instance					
+		public AudioSource aSource;						
+		---------------------------
+
+	Next you must create two functions, copy and paste 
+	the following functions into the script :
+
+	Function 1 - Plays the audio when called :
+		-------------------------------
+		// plays lose audio
+		void PlaySoundLose() {		
+			aSource.Play();
+		}
+		-------------------------------
+
+	Function 2 - loads the audio clips into an audio source :
+		------------------------------------------------------------------------
+		// initializes audio
+		void InitSoundLose() {
+			// adds audio source component
+			aSource = (AudioSource)gameObject.AddComponent <AudioSource>();
+			// creates audio clip
+			AudioClip aClip;
+			// stores audio file in audioClip variable
+			aClip = (AudioClip)Resources.Load ("s8(Fall argh)");
+			// sets source to audio clip/file
+			aSource.clip = aClip;
+			// plays lose sound
+			aSource.Play ();
+		}
+		------------------------------------------------------------------------
+
+	In 'void Start()' copy and paste the following (initializes the audio on start) :
+		--------------------
+		// initializes sound
+		InitSoundLose();
+		--------------------
+
+	The following must be implemented into the function that deals with invalid tile selection. So
+	the function that determines if the user selects and invalid tile and changes the status of the
+	users selection as invalid will not only determine if the users selection is invalid, it will
+	also play the lose sound when the users selection is invalid. Find the function that deals with
+	what was describe and copy and paste the following (plays audio when invalid tile selected) :
+		----------------
+		// plays lose sound		
+		PlaySoundLose();
+		----------------
+
+========================================================================================================
+========================================================================================================
+4 | - RANDOM PHRASES AUDIO IMPLEMENTATION:
+---	
+	The random phrase audio is played as the user is playing the game. When the user starts to play
+	a level, the pirate will say random phrases between 10 - 15 second random intervals. The following
+	code must be implemented into the script that is reponsible for dealing with the pirates behaviours.
+
+	At the start of the script some instance variables 
+	must be initialized. Copy and paste the following 
+	into the start of the script:
+		----------------------------------------------------------
+		// AudioSource instance
+		public AudioSource aSource;
+		// creates array of audio clips
+		public AudioClip[] aClip;
+		// will determine amount of time before next phrase plays
+		float randomTime;
+		// counter for timer
+		float timeCounter = 0;		
+		// set variable to pick random phrase
+		int randomMusic;
+		// bool used to start timer
+		bool isPlaying = true;				
+		----------------------------------------------------------
+
+	Next you must create two functions, copy and paste 
+	the following functions into the script :
+
+	Function 1 - Plays audio when called :
+		------------------------------------------------------------------------
+		// picks random phrase and plays it
+		void PlaySoundPhrase() {
+			// generates random number between 0 and 7
+			randomMusic = Random.Range (0,7);
+
+			// assigns audio clip to the different numbers that can be generated
+			switch (randomMusic) {
+			case 0:
+				aSource.clip = aClip[0];
+				break;
+			case 1:
+				aSource.clip = aClip[1];
+				break;
+			case 2:
+				aSource.clip = aClip[2];
+				break;
+			case 3:
+				aSource.clip = aClip[3];
+				break;
+			case 4:
+				aSource.clip = aClip[4];
+				break;
+			case 5:
+				aSource.clip = aClip[5];
+				break;
+			}
+			Debug.Log( "Current Clip = music" + (randomMusic + 1) );
+			// plays the audio clip currently selected
+			aSource.Play ();
+		}
+		------------------------------------------------------------------------
+
+	Function 2 - loads the audio clips into an audio source (using array) :
+			--------------------------------------------------------------------------
+			// initializes audio
+			void InitSoundPhrase() {
+				// adds audio source component
+				aSource = (AudioSource)gameObject.AddComponent <AudioSource> ();
+				// stores audio file in audioClip variable
+				aClip = new AudioClip[]
+				{
+					(AudioClip)Resources.Load ("s2(Payments)"),
+					(AudioClip)Resources.Load ("s3(Want me treasure)"),
+					(AudioClip)Resources.Load ("s4(Poop deck)"),
+					(AudioClip)Resources.Load ("s5(Yarg)"),
+					(AudioClip)Resources.Load ("s7(Help me)"),
+					(AudioClip)Resources.Load ("s9(Lost me treasure)")
+				};
+			}
+			--------------------------------------------------------------------------
+
+========================================================================================================
+======================================================================================================== 
